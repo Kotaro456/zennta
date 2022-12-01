@@ -18,6 +18,11 @@ Route::get('/', function () {
     return view('user.top');
 });
 
+Route::get('/following', function () {
+    return view('user.following');
+});
+
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
