@@ -22,6 +22,10 @@ Route::get('/following', function () {
     return view('user.following');
 });
 
+Route::get('/explore', function () {
+    return view('user.explore');
+});
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
