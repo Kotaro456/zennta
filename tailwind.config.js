@@ -13,6 +13,9 @@ module.exports = {
             fontFamily: {
                 sans: ['Nunito', ...defaultTheme.fontFamily.sans],
             },
+            minWidth: {
+                'sidebar': '320px'
+            }
         },
     },
 
