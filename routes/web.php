@@ -35,6 +35,10 @@ Route::get('/new', function () {
     return view('user.article.create');
 })->middleware(['auth', 'verified'])->name('article.create');
 
+Route::get('/edit', function () {
+    return view('user.article.edit');
+})->middleware(['auth', 'verified'])->name('article.edit');
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
