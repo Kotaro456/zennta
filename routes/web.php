@@ -28,8 +28,12 @@ Route::get('/explore', function () {
 
 
 Route::get('/dashboard', function () {
-    return view('user.dashboard');
+    return view('user.dashboard.dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::get('/dashboard/following', function () {
+    return view('user.dashboard.following');
+})->middleware(['auth', 'verified'])->name('dashboard.following');
 
 Route::get('/new', function () {
     return view('user.article.create');
