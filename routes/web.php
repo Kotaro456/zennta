@@ -35,6 +35,10 @@ Route::get('/dashboard/following', function () {
     return view('user.dashboard.following');
 })->middleware(['auth', 'verified'])->name('dashboard.following');
 
+Route::get('/dashboard/favorite', function () {
+    return view('user.dashboard.favorite');
+})->middleware(['auth', 'verified'])->name('dashboard.favorite');
+
 Route::get('/new', function () {
     return view('user.article.create');
 })->middleware(['auth', 'verified'])->name('article.create');
