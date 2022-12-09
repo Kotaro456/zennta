@@ -16,36 +16,39 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('user.top');
-});
+})->name('top');
 
 Route::get('/following', function () {
     return view('user.following');
-});
+})->name('following');
 
 Route::get('/explore', function () {
     return view('user.explore');
+})->name('explore');
+
+
+Route::middleware(['auth', 'verified'])->group(function () {
+
+    Route::get('/dashboard', function () {
+        return view('user.dashboard.dashboard');
+    })->name('dashboard');
+
+    Route::get('/dashboard/following', function () {
+        return view('user.dashboard.following');
+    })->name('dashboard.following');
+
+    Route::get('/dashboard/favorite', function () {
+        return view('user.dashboard.favorite');
+    })->name('dashboard.favorite');
+
+    Route::get('/new', function () {
+        return view('user.article.create');
+    })->name('article.create');
+
+    Route::get('/edit', function () {
+        return view('user.article.edit');
+    })->name('article.edit');
 });
-
-
-Route::get('/dashboard', function () {
-    return view('user.dashboard.dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
-Route::get('/dashboard/following', function () {
-    return view('user.dashboard.following');
-})->middleware(['auth', 'verified'])->name('dashboard.following');
-
-Route::get('/dashboard/favorite', function () {
-    return view('user.dashboard.favorite');
-})->middleware(['auth', 'verified'])->name('dashboard.favorite');
-
-Route::get('/new', function () {
-    return view('user.article.create');
-})->middleware(['auth', 'verified'])->name('article.create');
-
-Route::get('/edit', function () {
-    return view('user.article.edit');
-})->middleware(['auth', 'verified'])->name('article.edit');
 
 Route::middleware('auth')->name('user.')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

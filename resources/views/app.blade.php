@@ -11,7 +11,7 @@
 <body class="bg-white">
 <header class="text-gray-600 body-font bg-white">
     <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
-        <a class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
+        <a href="{{ route('top') }}" class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round"
                  stroke-linejoin="round" stroke-width="2" class="w-10 h-10 text-white p-2 bg-indigo-500 rounded-full"
                  viewBox="0 0 24 24">
@@ -20,10 +20,10 @@
             <span class="ml-3 text-xl">Zennta</span>
         </a>
         <nav class="md:ml-auto flex flex-wrap items-center text-base justify-center">
-            <a href="#" class="mr-5 hover:text-gray-900">TOP</a>
-            <a href="#" class="mr-5 hover:text-gray-900">EXPLORE</a>
-            <a href="#" class="mr-5 hover:text-gray-900">PHP</a>
-            <a href="#" class="mr-5 hover:text-gray-900">Go</a>
+            <a href="{{ route('top') }}" class="mr-5 hover:text-gray-900">TOP</a>
+            <a href="{{ route('explore') }}" class="mr-5 hover:text-gray-900">Explore</a>
+            <a href="{{ route('following') }}" class="mr-5 hover:text-gray-900">Following</a>
+            <a href="{{ route('dashboard') }}" class="mr-5 hover:text-gray-900">Dashboard</a>
         </nav>
 
         {{-- @todo コンポーネント化するか、他に合わせるか決めて実装する --}}
