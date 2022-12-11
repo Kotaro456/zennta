@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\User\ArticleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,9 +42,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return view('user.dashboard.favorite');
     })->name('dashboard.favorite');
 
-    Route::get('/new', function () {
-        return view('user.article.create');
-    })->name('article.create');
+    Route::get('/new', [ArticleController::class, 'new'])->name('article.create');
 
     Route::get('/edit', function () {
         return view('user.article.edit');
