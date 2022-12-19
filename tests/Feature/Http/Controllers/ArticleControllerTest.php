@@ -4,6 +4,7 @@ namespace Tests\Feature\Http\Controllers;
 
 use App\Models\User;
 use Tests\TestCase;
+use App\Models\Article;;
 
 class ArticleControllerTest extends TestCase
 {
@@ -17,7 +18,7 @@ class ArticleControllerTest extends TestCase
         $user = User::factory()->create();
         $articleOrigin = Article::Factory()->make();
 
-        $response = $this->actingAs($user)->post('/new', [
+        $response = $this->actingAs($user)->post('/create', [
             'title' => $articleOrigin->title,
             'body' => $articleOrigin->body,
         ]);
