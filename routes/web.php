@@ -42,7 +42,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return view('user.dashboard.favorite');
     })->name('dashboard.favorite');
 
-    Route::get('/new', [ArticleController::class, 'new'])->name('article.create');
+    Route::get('/new', [ArticleController::class, 'new'])->name('article.new');
+    Route::post('/create', [ArticleController::class, 'create'])->name('article.create');
 
     Route::get('/edit', function () {
         return view('user.article.edit');
