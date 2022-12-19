@@ -12,7 +12,8 @@
 <body class="bg-indigo-100">
 <header class="text-gray-600 body-font border-b border-indigo-200">
     <div class="container mx-auto flex flex-wrap py-2 flex-col md:flex-row items-center justify-between">
-        <a href="#" class="flex title-font items-center font-semibold rounded-full hover:bg-white text-4xl mb-4 md:mb-0 border-0 py-3 px-3">
+        <a href="#"
+           class="flex title-font items-center font-semibold rounded-full hover:bg-white text-4xl mb-4 md:mb-0 border-0 py-3 px-3">
             ←
         </a>
 
@@ -32,13 +33,15 @@
 <div class="content text-black body-font">
     <form id="articleForm" class=" w-4/5 mx-auto pt-12">
         @csrf
-        <input id="articleTitle" type="text" name="title" placeholder="Title" class="border-none outline-none w-full text-2xl" />
-        <textarea id="articleBody" class="h-192 w-full mt-12 p-8 text-xl border rounded-xl overflow-hidden resize-none focus:border-blue-500 ring-1 ring-transparent focus:ring-blue-500 focus:outline-none text-black transition ease-in-out duration-300"></textarea>
+        <input id="articleTitle" type="text" name="title" placeholder="Title"
+               class="border-none outline-none w-full text-2xl"/>
+        <textarea id="articleBody"
+                  class="h-192 w-full mt-12 p-8 text-xl border rounded-xl overflow-hidden resize-none focus:border-blue-500 ring-1 ring-transparent focus:ring-blue-500 focus:outline-none text-black transition ease-in-out duration-300"></textarea>
     </form>
 </div>
 <script type="module">
-    $(document).ready(function() {
-        $('#saveAndUpdate').on('click', function() {
+    $(document).ready(function () {
+        $('#saveAndUpdate').on('click', function () {
             //ajaxでのcsrfトークン送信
             $.ajaxSetup({
                 headers: {
@@ -48,17 +51,15 @@
 
             const data = {
                 title: $('#articleForm #articleTitle').val(),
-                body: $('#articleForm #articleBody').val(),
+                body : $('#articleForm #articleBody').val(),
             }
 
-            console.log(data);
-
             $.ajax({
-                url: "/create",
+                url : "/create",
                 type: "POST",
                 data: data,
             }).then((res) => {
-                console.log(res)
+
             })
         })
     })
