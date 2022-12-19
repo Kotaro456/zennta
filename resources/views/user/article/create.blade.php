@@ -30,7 +30,8 @@
     </div>
 </header>
 <div class="content text-black body-font">
-    <form action="{{ route('article.create') }}" method="POST" id="articleForm" class=" w-4/5 mx-auto pt-12">
+    <form id="articleForm" class=" w-4/5 mx-auto pt-12">
+        @csrf
         <input id="articleTitle" type="text" name="title" placeholder="Title" class="border-none outline-none w-full text-2xl" />
         <textarea id="articleBody" class="h-192 w-full mt-12 p-8 text-xl border rounded-xl overflow-hidden resize-none focus:border-blue-500 ring-1 ring-transparent focus:ring-blue-500 focus:outline-none text-black transition ease-in-out duration-300"></textarea>
     </form>
@@ -45,14 +46,17 @@
                 }
             });
 
-            const data = new FormData($("#articleForm").get(0))
+            const data = {
+                title: $('#articleForm #articleTitle').val(),
+                body: $('#articleForm #articleBody').val(),
+            }
+
+            console.log(data);
 
             $.ajax({
                 url: "/create",
                 type: "POST",
-                dataType: "json",
                 data: data,
-                processData: false,
             }).then((res) => {
                 console.log(res)
             })

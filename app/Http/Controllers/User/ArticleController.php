@@ -13,6 +13,13 @@ class ArticleController extends Controller
     }
 
     public function create(Request $request){
-        return true;
+        $article = new Article();
+
+        $article->title = $request->title;
+        $article->body  = $request->body;
+
+        $article->save();
+
+        return $article->save();
     }
 }
