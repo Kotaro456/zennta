@@ -19,12 +19,12 @@
 
         <div class="w-72 flex justify-between">
             <button
-                class="inline-flex items-center bg-violet-600 border-0 py-2 px-3 focus:outline-none hover:bg-violet-400 rounded text-base text-white font-semibold mt-4 md:mt-0">
-                公開/非公開
+                class="w-1/4 text-center bg-violet-600 border-0 py-2 px-3 focus:outline-none hover:bg-violet-400 rounded text-base text-white font-semibold mt-4 md:mt-0">
+                公開
             </button>
             <button
                 id="saveAndUpdate"
-                class="inline-flex items-center bg-violet-600 border-0 py-2 px-3 focus:outline-none hover:bg-violet-400 rounded text-base text-white font-semibold mt-4 md:mt-0">
+                class="w-2/4 text-center bg-violet-600 border-0 py-2 px-3 focus:outline-none hover:bg-violet-400 rounded text-base text-white font-semibold mt-4 md:mt-0">
                 下書き保存/更新
             </button>
         </div>
@@ -41,7 +41,9 @@
 </div>
 <script type="module">
     $(document).ready(function () {
+        const loadingEl = '<div class="animate-spin h-5 w-5 border-4 border-white-500 rounded-full border-t-transparent relative bottom-0 left-12"></div>'
         $('#saveAndUpdate').on('click', function () {
+            $(this).html(loadingEl)
             //ajaxでのcsrfトークン送信
             $.ajaxSetup({
                 headers: {
@@ -59,7 +61,7 @@
                 type: "POST",
                 data: data,
             }).then((res) => {
-
+                $(this).html('下書き保存/更新')
             })
         })
     })
