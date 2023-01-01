@@ -13,12 +13,19 @@ class ArticleController extends Controller
     }
 
     public function create(Request $request){
+        $validated = $request->validate([
+            'title' => 'required',
+            'body' => 'required',
+        ]);
+
+        if (count($validated) === 0) {
+            throw \Exception($validated);
+        }
+
         $article = new Article();
 
         $article->title = $request->title;
         $article->body  = $request->body;
-
-        $article->save();
 
         return $article->save();
     }

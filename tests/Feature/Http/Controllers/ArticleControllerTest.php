@@ -13,7 +13,7 @@ class ArticleControllerTest extends TestCase
      *
      * @return void
      */
-    public function test_create_正常()
+    public function test_create_正常(): void
     {
         $user = User::factory()->create();
         $articleOrigin = Article::Factory()->make();
@@ -28,4 +28,52 @@ class ArticleControllerTest extends TestCase
             'body' => $articleOrigin->body,
         ]);
     }
+
+    /**
+     * 記事の新規作成のバリデーションエラーテスト
+     * @dataProvider createValidationErrorProvider
+     * @param \Closure
+     * @return void
+     */
+    public function test_create_validation_error(\Closure $getData)
+    {
+        [$title, $body] = $getData();
+        $user = User::factory()->create();
+
+        $response = $this->actingAs($user)->postJson('/create', [
+            'title' => $title,
+            'body' => $body,
+        ]);
+
+        $response->assertStatus(422);
+        $this->assertDatabaseMissing('articles', [
+            'title' => $title,
+            'body' => $body,
+        ]);
+    }
+
+    public function createValidationErrorProvider(): array
+    {
+        return [
+          'タイトルと本文のどちらも空' => [
+            function () {
+                $articleOrigin = Article::Factory()->make(['title' => '', 'body' => '']);
+                return [$articleOrigin->title, $articleOrigin->body];
+            }
+          ],
+          'タイトルが空' => [
+            function () {
+                $articleOrigin = Article::Factory()->make(['title' => null]);
+                return [$articleOrigin->title, $articleOrigin->body];
+            }
+          ],
+          '本文が空' => [
+            function () {
+                $articleOrigin = Article::Factory()->make(['title' => null]);
+                return [$articleOrigin->title, $articleOrigin->body];
+            }
+          ],
+        ];
+    }
+
 }

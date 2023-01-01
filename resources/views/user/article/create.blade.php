@@ -62,6 +62,13 @@
                 data: data,
             }).then((res) => {
                 $(this).html('下書き保存/更新')
+            }).catch((error) => {
+                if (error.status === 422) {
+                    alert('エラー：タイトルと本文は必須です。')
+                }
+                console.log(error.status)
+                console.log(error)
+                $(this).html('下書き保存/更新')
             })
         })
     })
