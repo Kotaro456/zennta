@@ -5,6 +5,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Document</title>
     @vite('resources/js/app.js')
 </head>
@@ -24,7 +25,7 @@
             <a href="{{ route('explore') }}" class="mr-5 hover:text-gray-900">Explore</a>
             <a href="{{ route('following') }}" class="mr-5 hover:text-gray-900">Following</a>
             <a href="{{ route('dashboard') }}" class="mr-5 hover:text-gray-900">Dashboard</a>
-            <a href="{{ route('article.create') }}" class="mx-3 px-3 py-2 rounded-lg bg-purple-500 text-white">Add</a>
+            <a href="{{ route('article.new') }}" class="mx-3 px-3 py-2 rounded-lg bg-purple-500 text-white">Add</a>
         </nav>
 
         {{-- @todo コンポーネント化するか、他に合わせるか決めて実装する --}}
