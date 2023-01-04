@@ -66,9 +66,7 @@
                     </x-slot>
                 </x-dropdown>
             @endauth
-            @guest('admin')
-
-            @endguest
+            {{-- @todo ゲストユーザーの時のSignupボタンを設置 --}}
         </div>
 
         <!-- Hamburger -->
