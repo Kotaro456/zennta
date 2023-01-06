@@ -7,10 +7,12 @@ use App\Models\Article;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class ArticleController extends Controller
+class DashboardController extends Controller
 {
-    public function new(){
-        return view('user.article.create');
+    public function index(){
+        $user = Auth::user();
+        $articles = Article::where('user_id', $user->id)->get();
+        return view('user.dashboard.dashboard', ['articles' => $articles]);
     }
 
     public function create(Request $request){
