@@ -15,7 +15,7 @@
                                 <p class="leading-relaxed mb-3">{{ $article->body }}</p>
                                 <a href="#" class="text-indigo-500 inline-flex items-center">いいね</a>
                                 <div class="text-center mt-1 w-full">
-                                    <a href="{{ route('article.edit') }}" class="shadow-lg bg-violet-500 shadow-violet-500/50 text-white rounded px-2 py-1">
+                                    <a href="{{ route('article.edit', $article->id) }}" class="shadow-lg bg-violet-500 shadow-violet-500/50 text-white rounded px-2 py-1">
                                         edit
                                     </a>
                                 </div>

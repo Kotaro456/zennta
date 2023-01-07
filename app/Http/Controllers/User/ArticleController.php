@@ -32,4 +32,9 @@ class ArticleController extends Controller
 
         return $article->save();
     }
+
+    public function edit(int $id){
+        $article = Article::find($id);
+        return view('user.article.edit', ['article' => $article]);
+    }
 }

@@ -29,8 +29,8 @@
 </header>
 <div class="content text-black body-font">
     <div class=" w-4/5 mx-auto pt-12">
-        <input id="title" type="text" name="title" placeholder="Title" value="Golangの基礎" class="border-none outline-none w-full text-2xl" />
-        <textarea class="h-192 w-full mt-12 p-8 text-xl border rounded-xl overflow-hidden resize-none focus:border-blue-500 ring-1 ring-transparent focus:ring-blue-500 focus:outline-none text-black transition ease-in-out duration-300">Goとは...</textarea>
+        <input id="title" type="text" name="title" placeholder="Title" value="{{ $article->title }}" class="border-none outline-none w-full text-2xl" />
+        <textarea class="h-192 w-full mt-12 p-8 text-xl border rounded-xl overflow-hidden resize-none focus:border-blue-500 ring-1 ring-transparent focus:ring-blue-500 focus:outline-none text-black transition ease-in-out duration-300">{{ $article->body }}</textarea>
     </div>
 </div>
 </body>
