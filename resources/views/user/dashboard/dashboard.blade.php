@@ -14,9 +14,10 @@
                                 <h1 class="title-font sm:text-2xl text-xl font-medium text-gray-900 mb-3">{{ $article->title }}</h1>
                                 <p class="leading-relaxed mb-3">{{ $article->body }}</p>
                                 <a href="#" class="text-indigo-500 inline-flex items-center">いいね</a>
-                                <div
-                                    class="text-center mt-2 leading-none flex justify-center absolute bottom-0 left-0 w-full py-4">
-                                    <span class="text-gray-400 inline-flex items-center leading-none text-sm"></span>
+                                <div class="text-center mt-1 w-full">
+                                    <a href="{{ route('article.edit') }}" class="shadow-lg bg-violet-500 shadow-violet-500/50 text-white rounded px-2 py-1">
+                                        edit
+                                    </a>
                                 </div>
                             </div>
                         </div>
