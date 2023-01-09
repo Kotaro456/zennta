@@ -16,7 +16,7 @@ class ArticleControllerTest extends TestCase
     public function test_create_正常(): void
     {
         $user = User::factory()->create();
-        $articleOrigin = Article::Factory()->make();
+        $articleOrigin = Article::factory()->make();
 
         $response = $this->actingAs($user)->post('/create', [
             'title' => $articleOrigin->title,
@@ -57,23 +57,47 @@ class ArticleControllerTest extends TestCase
         return [
           'タイトルと本文のどちらも空' => [
             function () {
-                $articleOrigin = Article::Factory()->make(['title' => '', 'body' => '']);
+                $articleOrigin = Article::factory()->make(['title' => '', 'body' => '']);
                 return [$articleOrigin->title, $articleOrigin->body];
             }
           ],
           'タイトルが空' => [
             function () {
-                $articleOrigin = Article::Factory()->make(['title' => null]);
+                $articleOrigin = Article::factory()->make(['title' => null]);
                 return [$articleOrigin->title, $articleOrigin->body];
             }
           ],
           '本文が空' => [
             function () {
-                $articleOrigin = Article::Factory()->make(['title' => null]);
+                $articleOrigin = Article::factory()->make(['title' => null]);
                 return [$articleOrigin->title, $articleOrigin->body];
             }
           ],
         ];
     }
 
+
+    /**
+     * 記事の編集のテスト
+     *
+     * @return void
+     */
+    public function test_update_正常(): void
+    {
+        $user = User::factory()->create();
+        $articleOrigin = Article::factory()->create(['user_id' => $user->id]);
+
+        $articleTitleEdited = $articleOrigin->title . '更新';
+        $articleBodyEdited = $articleOrigin->body . '更新';
+
+        $this->actingAs($user)->post("/update/$articleOrigin->id", [
+            'title' => $articleTitleEdited,
+            'body' => $articleBodyEdited,
+        ]);
+
+        $this->assertDatabaseHas('articles', [
+            'title' => $articleTitleEdited,
+            'body' => $articleBodyEdited,
+        ]);
+    }
 }
