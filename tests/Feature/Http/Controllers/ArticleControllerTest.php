@@ -100,4 +100,61 @@ class ArticleControllerTest extends TestCase
             'body' => $articleBodyEdited,
         ]);
     }
+
+    /**
+     * 記事の新規作成のバリデーションエラーテスト
+     * @dataProvider updateValidationErrorProvider
+     * @param \Closure
+     * @return void
+     */
+    public function test_update_validation_error(\Closure $getData)
+    {
+        [$article, $user] = $getData();
+
+        $response = $this->actingAs($user)->postJson("/update/$article->id", [
+            'id'    => $article->id,
+            'title' => $article->title,
+            'body'  => $article->body,
+        ]);
+
+        $response->assertStatus(422);
+        $this->assertDatabaseMissing('articles', [
+            'title' => $article->title,
+            'body' => $article->body,
+        ]);
+    }
+
+    public function updateValidationErrorProvider(): array
+    {
+        return [
+            'タイトルと本文のどちらも空' => [
+                function () {
+                    $article = Article::factory()->create();
+                    $article->title = '';
+                    $article->body  = '';
+
+                    $user = $article->user;
+                    return [$article, $user];
+                }
+            ],
+            'タイトルが空' => [
+                function () {
+                    $article = Article::factory()->create();
+                    $article->title = '';
+
+                    $user = $article->user;
+                    return [$article, $user];
+                }
+            ],
+            '本文が空' => [
+                function () {
+                    $article = Article::factory()->create();
+                    $article->body  = '';
+
+                    $user = $article->user;
+                    return [$article, $user];
+                }
+            ],
+        ];
+    }
 }
