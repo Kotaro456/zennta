@@ -102,7 +102,7 @@ class ArticleControllerTest extends TestCase
     }
 
     /**
-     * 記事の新規作成のバリデーションエラーテスト
+     * 記事の編集のバリデーションエラーテスト
      * @dataProvider updateValidationErrorProvider
      * @param \Closure
      * @return void
