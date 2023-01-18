@@ -32,4 +32,28 @@ class ArticleController extends Controller
 
         return $article->save();
     }
+
+    public function edit(int $id){
+        $article = Article::find($id);
+        return view('user.article.edit', ['article' => $article]);
+    }
+
+    public function update(Request $request){
+        $validated = $request->validate([
+            'title' => 'required',
+            'body' => 'required',
+        ]);
+
+        if (count($validated) === 0) {
+            throw \Exception($validated);
+        }
+
+        $article = Article::find($request->id);
+
+        $article->title = $request->title;
+        $article->body  = $request->body;
+
+        return $article->save();
+    }
+
 }

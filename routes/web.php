@@ -44,9 +44,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/new', [ArticleController::class, 'new'])->name('article.new');
     Route::post('/create', [ArticleController::class, 'create'])->name('article.create');
 
-    Route::get('/edit', function () {
-        return view('user.article.edit');
-    })->name('article.edit');
+    Route::get('/edit/{id}', [ArticleController::class, 'edit'])->name('article.edit');
+    Route::post('/update/{id}', [ArticleController::class, 'update'])->name('article.update');
 });
 
 Route::middleware('auth')->name('user.')->group(function () {
