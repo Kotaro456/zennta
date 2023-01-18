@@ -149,7 +149,7 @@ class ArticleControllerTest extends TestCase
             '本文が空' => [
                 function () {
                     $article = Article::factory()->create();
-                    $article->body  = '';
+                    $article->body = '';
 
                     $user = $article->user;
                     return [$article, $user];
