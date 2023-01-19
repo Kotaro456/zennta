@@ -170,9 +170,8 @@ class ArticleControllerTest extends TestCase
 
         $this->actingAs($user)->post("/delete/$article->id");
 
-        $this->assertDatabaseMissing('articles', [
-            'title' => $article->title,
-            'body' => $article->body,
+        $this->assertSoftDeleted('articles', [
+            'id' => $article->id,
         ]);
     }
 
