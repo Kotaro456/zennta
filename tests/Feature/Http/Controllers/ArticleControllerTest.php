@@ -157,4 +157,22 @@ class ArticleControllerTest extends TestCase
             ],
         ];
     }
+
+    /**
+     * 記事の削除のテスト
+     *
+     * @return void
+     */
+    public function test_delete_正常(): void
+    {
+        $user = User::factory()->create();
+        $article = Article::factory()->create(['user_id' => $user->id]);
+
+        $this->actingAs($user)->post("/delete/$article->id");
+
+        $this->assertSoftDeleted('articles', [
+            'id' => $article->id,
+        ]);
+    }
+
 }
