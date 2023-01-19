@@ -46,6 +46,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/edit/{id}', [ArticleController::class, 'edit'])->name('article.edit');
     Route::post('/update/{id}', [ArticleController::class, 'update'])->name('article.update');
+    Route::post('/delete/{id}', [ArticleController::class, 'delete'])->name('article.delete');
 });
 
 Route::middleware('auth')->name('user.')->group(function () {

@@ -56,4 +56,8 @@ class ArticleController extends Controller
         return $article->save();
     }
 
+    public function delete(int $id){
+        $article = Article::destroy($id);
+        return redirect()->route('dashboard');
+    }
 }

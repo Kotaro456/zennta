@@ -14,10 +14,14 @@
                                 <h1 class="title-font sm:text-2xl text-xl font-medium text-gray-900 mb-3">{{ $article->title }}</h1>
                                 <p class="leading-relaxed mb-3">{{ $article->body }}</p>
                                 <a href="#" class="text-indigo-500 inline-flex items-center">いいね</a>
-                                <div class="text-center mt-1 w-full">
+                                <div class="text-center mt-1 w-full inline-flex justify-around">
                                     <a href="{{ route('article.edit', $article->id) }}" class="shadow-lg bg-violet-500 shadow-violet-500/50 text-white rounded px-2 py-1">
                                         edit
                                     </a>
+                                    <form action="{{route('article.delete', $article->id)}}" method="POST">
+                                        @csrf
+                                        <input type="submit" value="delete" class="cursor-pointer shadow-lg bg-red-500 shadow-red-500/50 text-white rounded px-2 py-1">
+                                    </form>
                                 </div>
                             </div>
                         </div>
