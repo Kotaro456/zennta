@@ -16,15 +16,15 @@
             ←
         </a>
 
-        <div class="w-72 flex justify-between">
+        <div class="w-80 flex justify-between">
             <button
                 id="publishOrPrivate"
-                class="publish w-1/4 text-center bg-violet-600 border-0 py-2 px-3 focus:outline-none hover:bg-violet-400 rounded text-base text-white font-semibold mt-4 md:mt-0">
+                class="publish w-36 text-center bg-violet-600 border-0 py-2 px-3 focus:outline-none hover:bg-violet-400 rounded text-base text-white font-semibold mt-4 md:mt-0">
                 公開
             </button>
             <button
                 id="updateArticle"
-                class="w-2/4 text-center bg-violet-600 border-0 py-2 px-3 focus:outline-none hover:bg-violet-400 rounded text-base text-white font-semibold mt-4 md:mt-0">
+                class="w-36 text-center bg-violet-600 border-0 py-2 px-3 focus:outline-none hover:bg-violet-400 rounded text-base text-white font-semibold mt-4 md:mt-0">
                 下書き保存/更新
             </button>
         </div>
