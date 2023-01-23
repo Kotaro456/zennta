@@ -17,12 +17,7 @@
             ←
         </a>
 
-        <div class="w-72 flex justify-between">
-            <button
-                id="publishOrPrivate"
-                class="publish w-1/4 text-center bg-violet-600 border-0 py-2 px-3 focus:outline-none hover:bg-violet-400 rounded text-base text-white font-semibold mt-4 md:mt-0">
-                公開
-            </button>
+        <div class="w-72">
             <button
                 id="saveAndUpdate"
                 class="w-2/4 text-center bg-violet-600 border-0 py-2 px-3 focus:outline-none hover:bg-violet-400 rounded text-base text-white font-semibold mt-4 md:mt-0">
@@ -71,24 +66,6 @@
                 console.log(error)
                 $(this).html('下書き保存/更新')
             })
-        })
-
-        $('#publishOrPrivate').on('click', function () {
-            if($(this).hasClass("publish")) {
-                $(this).html(loadingEl)
-
-
-                $(this).removeClass("publish")
-                $(this).addClass("private")
-                $(this).html('非公開')
-            }else if($(this).hasClass("private")) {
-                $(this).html(loadingEl)
-
-
-                $(this).removeClass("private")
-                $(this).addClass("publish")
-                $(this).html('公開')
-            }
         })
     })
 </script>

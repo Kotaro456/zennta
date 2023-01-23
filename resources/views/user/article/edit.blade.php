@@ -18,8 +18,9 @@
 
         <div class="w-72 flex justify-between">
             <button
-                class="inline-flex items-center bg-violet-600 border-0 py-2 px-3 focus:outline-none hover:bg-violet-400 rounded text-base text-white font-semibold mt-4 md:mt-0">
-                公開/非公開
+                id="publishOrPrivate"
+                class="publish w-1/4 text-center bg-violet-600 border-0 py-2 px-3 focus:outline-none hover:bg-violet-400 rounded text-base text-white font-semibold mt-4 md:mt-0">
+                公開
             </button>
             <button
                 id="updateArticle"
@@ -73,6 +74,60 @@
                 console.log(error)
                 $(this).html('下書き保存/更新')
             })
+        })
+        $('#publishOrPrivate').on('click', function () {
+            const articleId = $('#articleForm #articleId').val();
+
+            $(this).html(loadingEl)
+
+            //ajaxでのcsrfトークン送信
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+
+            if($(this).hasClass("publish")) {
+
+                $.ajax({
+                    url : `/updatePublication/${articleId}/1`,
+                    type: "POST",
+                }).then((res) => {
+                    $(this).removeClass("publish")
+                    $(this).addClass("private")
+                    $(this).html('非公開')
+                }).catch((error) => {
+                    if (error) {
+                        alert('エラー：予期せぬ不具合が発生しました。')
+                    }
+                    console.log(error.status)
+                    console.log(error)
+                    $(this).removeClass("private")
+                    $(this).addClass("publish")
+                    $(this).html('公開')
+                })
+
+            }else if($(this).hasClass("private")) {
+
+                $.ajax({
+                    url : `/updatePublication/${articleId}/0`,
+                    type: "POST",
+                }).then((res) => {
+                    $(this).removeClass("private")
+                    $(this).addClass("public")
+                    $(this).html('公開')
+                }).catch((error) => {
+                    if (error) {
+                        alert('エラー：予期せぬ不具合が発生しました。')
+                    }
+                    console.log(error.status)
+                    console.log(error)
+                    $(this).removeClass("public")
+                    $(this).addClass("private")
+                    $(this).html('非公開')
+                })
+            }
         })
     })
 </script>
