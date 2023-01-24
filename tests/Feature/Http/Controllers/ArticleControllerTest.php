@@ -175,4 +175,44 @@ class ArticleControllerTest extends TestCase
         ]);
     }
 
+    /**
+     * 記事の公開/非公開のテスト
+     * @dataProvider updatePublicationProvider
+     * @param \Closure
+     * @return void
+     */
+    public function test_updatePublication(\Closure $getData)
+    {
+        [$article] = $getData();
+        $user = $article->user;
+        $status = $article->is_public ? 0 : 1;
+
+        $this->actingAs($user)->post("/updatePublication/$article->id/$status");
+
+        $this->assertDatabaseHas('articles', [
+            'title'     => $article->title,
+            'body'      => $article->body,
+            'is_public' => $status,
+        ]);
+    }
+
+    public function updatePublicationProvider(): array
+    {
+        return [
+            '公開' => [
+                function () {
+                    $article = Article::factory()->create(['is_public' => false]);
+
+                    return [$article];
+                }
+            ],
+            '非公開' => [
+                function () {
+                    $article = Article::factory()->create(['is_public' => true]);
+
+                    return [$article];
+                }
+            ],
+        ];
+    }
 }
