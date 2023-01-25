@@ -17,11 +17,7 @@
             ←
         </a>
 
-        <div class="w-72 flex justify-between">
-            <button
-                class="w-1/4 text-center bg-violet-600 border-0 py-2 px-3 focus:outline-none hover:bg-violet-400 rounded text-base text-white font-semibold mt-4 md:mt-0">
-                公開
-            </button>
+        <div class="w-72">
             <button
                 id="saveAndUpdate"
                 class="w-2/4 text-center bg-violet-600 border-0 py-2 px-3 focus:outline-none hover:bg-violet-400 rounded text-base text-white font-semibold mt-4 md:mt-0">

@@ -18,7 +18,17 @@ class Article extends Model
      */
     protected $fillable = [
         'title',
-        'body'
+        'body',
+        'is_public',
+    ];
+
+    /**
+     * モデルの属性のデフォルト値
+     *
+     * @var array
+     */
+    protected $attributes = [
+        'is_public' => true,
     ];
 
     /**
