@@ -2,21 +2,20 @@
 
 namespace Database\Factories;
 
-use App\Models\Article;
-use App\Models\User;
+use App\Models\Category;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
  * @extends Factory
  */
-class ArticleFactory extends Factory
+class CategoryFactory extends Factory
 {
     /**
      * モデルと対応するファクトリの名前
      *
      * @var string
      */
-    protected $model = Article::class;
+    protected $model = Category::class;
 
     /**
      * Define the model's default state.
@@ -26,10 +25,8 @@ class ArticleFactory extends Factory
     public function definition()
     {
         return [
-            'user_id'     => User::factory()->create(),
-            'title'       => fake()->name(),
+            'name'        => fake()->name(),
             'description' => fake()->sentences(),
-            'is_public'   => true,
         ];
     }
 }
