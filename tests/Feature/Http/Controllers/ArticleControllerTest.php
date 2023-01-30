@@ -18,7 +18,7 @@ class ArticleControllerTest extends TestCase
         $user = User::factory()->create();
         $articleOrigin = Article::factory()->make();
 
-        $response = $this->actingAs($user)->post('/create', [
+         $this->actingAs($user)->post('/create', [
             'title' => $articleOrigin->title,
             'body' => $articleOrigin->body,
         ]);

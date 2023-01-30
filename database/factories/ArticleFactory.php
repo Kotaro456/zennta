@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Article;
+use App\Models\Category;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -27,8 +28,9 @@ class ArticleFactory extends Factory
     {
         return [
             'user_id'     => User::factory()->create(),
+            'category_id' => Category::factory()->create(),
             'title'       => fake()->name(),
-            'description' => fake()->sentences(),
+            'body' => fake()->sentence(),
             'is_public'   => true,
         ];
     }
