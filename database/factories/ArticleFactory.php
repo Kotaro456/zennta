@@ -28,10 +28,24 @@ class ArticleFactory extends Factory
     {
         return [
             'user_id'     => User::factory()->create(),
-            'category_id' => Category::factory()->create(),
+            'category_id' => Category::query()->inRandomOrder()->first()->id,
             'title'       => fake()->name(),
             'body' => fake()->sentence(),
             'is_public'   => true,
         ];
+    }
+
+    /**
+     * カテゴリーを選択せずに記事を保存。
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    public function nullCategory()
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'category_id' => null,
+            ];
+        });
     }
 }

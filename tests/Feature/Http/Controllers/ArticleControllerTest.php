@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\User;
 use Tests\TestCase;
 use App\Models\Article;;
@@ -10,24 +11,50 @@ class ArticleControllerTest extends TestCase
 {
     /**
      * 記事の新規作成のテスト
-     *
+     * @dataProvider createArticleProvider
+     * @param \Closure
      * @return void
      */
-    public function test_create_正常(): void
+    public function test_create_正常(\Closure $getData): void
     {
-        $user = User::factory()->create();
-        $articleOrigin = Article::factory()->make();
+        [$article, $user] = $getData();
 
-         $this->actingAs($user)->post('/create', [
-            'title' => $articleOrigin->title,
-            'body' => $articleOrigin->body,
+
+        $this->actingAs($user)->post('/create', [
+            'title' => $article->title,
+            'body' => $article->body,
+            'category_id' => $article->category_id,
         ]);
 
         $this->assertDatabaseHas('articles', [
-            'title' => $articleOrigin->title,
-            'body' => $articleOrigin->body,
+            'title' => $article->title,
+            'body' => $article->body,
+            'category_id' => $article->category_id,
         ]);
     }
+
+    public function createArticleProvider(): array
+    {
+        return [
+            'カテゴリーなし' => [
+                function () {
+                    $article = Article::factory()->nullCategory()->make();
+
+                    $user = $article->user;
+                    return [$article, $user];
+                }
+            ],
+            'カテゴリーあり' => [
+                function () {
+                    $article = Article::factory()->make();
+
+                    $user = $article->user;
+                    return [$article, $user];
+                }
+            ],
+        ];
+    }
+
 
     /**
      * 記事の新規作成のバリデーションエラーテスト
