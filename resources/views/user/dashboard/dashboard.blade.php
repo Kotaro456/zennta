@@ -10,7 +10,7 @@
                         <div class="p-2 lg:w-1/4">
                             <div
                                 class="bg-white border-2 border-indigo-400 px-8 py-2 rounded-lg overflow-hidden text-center relative">
-                                <h2 class="tracking-widest text-xs title-font font-medium text-gray-400 mb-1">カテゴリー</h2>
+                                <h2 class="tracking-widest text-xs title-font font-medium text-gray-400 mb-1">{{ $article->category ? $article->category->name : "カテゴリーなし" }}</h2>
                                 <h1 class="title-font sm:text-2xl text-xl font-medium text-gray-900 mb-3">{{ $article->title }}</h1>
                                 <p class="leading-relaxed mb-3">{{ $article->body }}</p>
                                 <a href="#" class="text-indigo-500 inline-flex items-center">いいね</a>

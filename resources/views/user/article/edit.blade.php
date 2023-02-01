@@ -31,14 +31,25 @@
     </div>
 </header>
 <div class="content text-black body-font">
-    <div class=" w-4/5 mx-auto pt-12">
-        <form id="articleForm" class=" w-4/5 mx-auto pt-12">
-            @csrf
+    <form id="articleForm" class="flex justify-between w-4/5 mx-auto pt-12">
+        @csrf
+        <div class="main-form basis-2/3">
             <input id="articleId" type="hidden" value="{{ $article->id }}" />
             <input id="articleTitle" type="text" name="title" placeholder="Title" value="{{ $article->title }}" class="border-none outline-none w-full text-2xl" />
             <textarea id="articleBody" class="h-192 w-full mt-12 p-8 text-xl border rounded-xl overflow-hidden resize-none focus:border-blue-500 ring-1 ring-transparent focus:ring-blue-500 focus:outline-none text-black transition ease-in-out duration-300">{{ $article->body }}</textarea>
-        </form>
-    </div>
+        </div>
+        <div class="side-form basis-1/4">
+            <div>
+                <label for="articleCategory">Category:</label>
+                <select name="category" id="articleCategory">
+                    <option value="">-- Set Category --</option>
+                    @foreach($categories as $category)
+                        <option value="{{$category->id}}" {{ $article->category_id === $category->id ? "selected" : "" }}>{{ $category->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+        </div>
+    </form>
 </div>
 <script type="module">
     $(document).ready(function () {
@@ -58,6 +69,7 @@
                 id   : articleId,
                 title: $('#articleForm #articleTitle').val(),
                 body : $('#articleForm #articleBody').val(),
+                category_id : $('#articleForm #articleCategory').val(),
             }
 
             $.ajax({

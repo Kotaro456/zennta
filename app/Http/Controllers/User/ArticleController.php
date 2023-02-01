@@ -4,13 +4,15 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\Article;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class ArticleController extends Controller
 {
     public function new(){
-        return view('user.article.create');
+        $categories = Category::all();
+        return view('user.article.create', ['categories' => $categories]);
     }
 
     public function create(Request $request){
@@ -29,13 +31,15 @@ class ArticleController extends Controller
         $article->user_id = $user->id;
         $article->title = $request->title;
         $article->body  = $request->body;
+        $article->category_id = $request->category_id;
 
         return $article->save();
     }
 
     public function edit(int $id){
         $article = Article::find($id);
-        return view('user.article.edit', ['article' => $article]);
+        $categories = Category::all();
+        return view('user.article.edit', ['article' => $article, 'categories' => $categories]);
     }
 
     public function update(Request $request){
@@ -52,6 +56,7 @@ class ArticleController extends Controller
 
         $article->title = $request->title;
         $article->body  = $request->body;
+        $article->category_id = $request->category_id;
 
         return $article->save();
     }
