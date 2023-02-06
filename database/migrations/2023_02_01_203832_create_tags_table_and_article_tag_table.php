@@ -35,7 +35,7 @@ return new class extends Migration
         DB::table('tags')->insert(self::TAGS);
         DB::table('tags')->update(['created_at' => $now, 'updated_at' => $now]);
 
-        Schema::create('article_tags', function (Blueprint $table) {
+        Schema::create('article_tag', function (Blueprint $table) {
             $table->id();
             $table->foreignId('article_id')->constrained('articles');
             $table->foreignId('tag_id')->constrained('tags');
@@ -51,7 +51,7 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('article_tags');
+        Schema::dropIfExists('article_tag');
         Schema::dropIfExists('tags');
     }
 };
