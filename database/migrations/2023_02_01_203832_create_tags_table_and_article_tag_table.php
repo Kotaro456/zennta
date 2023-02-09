@@ -8,14 +8,14 @@ use Illuminate\Support\Facades\Date;
 return new class extends Migration
 {
     const TAGS = [
-        ['name' => 'PHP'],
-        ['name' => 'Go'],
-        ['name' => 'JavaScript'],
-        ['name' => 'MySQL'],
-        ['name' => 'Laravel'],
-        ['name' => 'React'],
-        ['name' => 'Next.js'],
-        ['name' => 'ポエム'],
+        ['name' => 'PHP',        'key' => 'php'],
+        ['name' => 'Go',         'key' => 'go'],
+        ['name' => 'JavaScript', 'key' => 'js'],
+        ['name' => 'MySQL',      'key' => 'mysql'],
+        ['name' => 'Laravel',    'key' => 'laravel'],
+        ['name' => 'React',      'key' => 'react'],
+        ['name' => 'Next.js',    'key' => 'nextjs'],
+        ['name' => 'ポエム',      'key' => 'poem'],
     ];
     /**
      * Run the migrations.
@@ -27,6 +27,7 @@ return new class extends Migration
         Schema::create('tags', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('key');
             $table->softDeletes();
             $table->timestamps();
         });
