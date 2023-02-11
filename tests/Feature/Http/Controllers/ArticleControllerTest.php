@@ -3,9 +3,10 @@
 namespace Tests\Feature\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Tag;
 use App\Models\User;
 use Tests\TestCase;
-use App\Models\Article;;
+use App\Models\Article;
 
 class ArticleControllerTest extends TestCase
 {
@@ -23,7 +24,7 @@ class ArticleControllerTest extends TestCase
         $this->actingAs($user)->post('/create', [
             'title' => $article->title,
             'body' => $article->body,
-            'category_id' => $article->category_id,
+            'categoryId' => $article->category_id,
         ]);
 
         $this->assertDatabaseHas('articles', [
@@ -57,6 +58,68 @@ class ArticleControllerTest extends TestCase
 
 
     /**
+     * タグあり記事の新規作成のテスト
+     * @dataProvider createArticleWithTagProvider
+     * @param \Closure
+     * @return void
+     */
+    public function test_create_正常_タグあり(\Closure $getData): void
+    {
+        [$article, $tags, $user] = $getData();
+
+
+        $this->actingAs($user)->post('/create', [
+            'title' => $article->title,
+            'body' => $article->body,
+            'categoryId' => $article->category_id,
+            'tagIds' => $tags
+        ]);
+
+        $article = Article::where('title', $article->title)->first();
+
+        $this->assertDatabaseHas('articles', [
+            'title' => $article->title,
+            'body' => $article->body,
+            'category_id' => $article->category_id,
+        ]);
+
+        if (!empty($tags)) {
+            foreach ($tags as $tag) {
+                $this->assertDatabaseHas('article_tag', [
+                    'article_id' => $article->id,
+                    'tag_id' => $tag,
+                ]);
+            }
+        }
+    }
+
+    public function createArticleWithTagProvider(): array
+    {
+        return [
+            'タグなし' => [
+                function () {
+                    $article = Article::factory()->nullCategory()->make(['title' => fake()->uuid()]);
+                    $tags = [];
+
+                    $user = $article->user;
+                    return [$article, $tags, $user];
+                }
+            ],
+            'タグあり' => [
+                function () {
+                    $article = Article::factory()->make(['title' => fake()->uuid()]);
+                    $tags = Tag::inRandomOrder()->take(3)->get()->pluck('id')->toArray();
+
+
+                    $user = $article->user;
+                    return [$article, $tags, $user];
+                }
+            ],
+        ];
+    }
+
+
+    /**
      * 記事の新規作成のバリデーションエラーテスト
      * @dataProvider createValidationErrorProvider
      * @param \Closure
@@ -82,24 +145,24 @@ class ArticleControllerTest extends TestCase
     public function createValidationErrorProvider(): array
     {
         return [
-          'タイトルと本文のどちらも空' => [
-            function () {
-                $articleOrigin = Article::factory()->make(['title' => '', 'body' => '']);
-                return [$articleOrigin->title, $articleOrigin->body];
-            }
-          ],
-          'タイトルが空' => [
-            function () {
-                $articleOrigin = Article::factory()->make(['title' => null]);
-                return [$articleOrigin->title, $articleOrigin->body];
-            }
-          ],
-          '本文が空' => [
-            function () {
-                $articleOrigin = Article::factory()->make(['title' => null]);
-                return [$articleOrigin->title, $articleOrigin->body];
-            }
-          ],
+            'タイトルと本文のどちらも空' => [
+                function () {
+                    $articleOrigin = Article::factory()->make(['title' => '', 'body' => '']);
+                    return [$articleOrigin->title, $articleOrigin->body];
+                }
+            ],
+            'タイトルが空' => [
+                function () {
+                    $articleOrigin = Article::factory()->make(['title' => null]);
+                    return [$articleOrigin->title, $articleOrigin->body];
+                }
+            ],
+            '本文が空' => [
+                function () {
+                    $articleOrigin = Article::factory()->make(['title' => null]);
+                    return [$articleOrigin->title, $articleOrigin->body];
+                }
+            ],
         ];
     }
 
@@ -137,8 +200,8 @@ class ArticleControllerTest extends TestCase
                     $article->title = $article->title . '更新';
                     $article->body = $article->body . '更新';
                     $article->category_id = Category::query()
-                                                ->where('id', '!=',$article->category_id)
-                                                ->inRandomOrder()->first()->id;
+                        ->where('id', '!=', $article->category_id)
+                        ->inRandomOrder()->first()->id;
 
 
                     $user = $article->user;
@@ -172,9 +235,9 @@ class ArticleControllerTest extends TestCase
         [$article, $user] = $getData();
 
         $response = $this->actingAs($user)->postJson("/update/$article->id", [
-            'id'    => $article->id,
+            'id' => $article->id,
             'title' => $article->title,
-            'body'  => $article->body,
+            'body' => $article->body,
         ]);
 
         $response->assertStatus(422);
@@ -191,7 +254,7 @@ class ArticleControllerTest extends TestCase
                 function () {
                     $article = Article::factory()->create();
                     $article->title = '';
-                    $article->body  = '';
+                    $article->body = '';
 
                     $user = $article->user;
                     return [$article, $user];
@@ -250,8 +313,8 @@ class ArticleControllerTest extends TestCase
         $this->actingAs($user)->post("/updatePublication/$article->id/$status");
 
         $this->assertDatabaseHas('articles', [
-            'title'     => $article->title,
-            'body'      => $article->body,
+            'title' => $article->title,
+            'body' => $article->body,
             'is_public' => $status,
         ]);
     }
