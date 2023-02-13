@@ -48,4 +48,18 @@ class ArticleFactory extends Factory
             ];
         });
     }
+
+    /**
+     * タグを設定して記事を保存。
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    public function withTags()
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'category_id' => null,
+            ];
+        });
+    }
 }

@@ -48,4 +48,12 @@ class Article extends Model
     {
         return $this->belongsTo(Category::class, 'category_id');
     }
+
+    /**
+     * この記事に紐づくタグ
+     */
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class);
+    }
 }
