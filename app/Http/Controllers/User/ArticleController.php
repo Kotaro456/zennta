@@ -8,6 +8,8 @@ use App\Models\Category;
 use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Date;
+use Illuminate\Support\Facades\DB;
 
 class ArticleController extends Controller
 {
@@ -49,7 +51,9 @@ class ArticleController extends Controller
     public function edit(int $id){
         $article = Article::find($id);
         $categories = Category::all();
-        return view('user.article.edit', ['article' => $article, 'categories' => $categories]);
+        $tags = Tag::all();
+        $articleTags = $article->tags()->pluck('tags.id')->toArray();
+        return view('user.article.edit', ['article' => $article, 'categories' => $categories, 'tags' => $tags, 'articleTags' => $articleTags]);
     }
 
     public function update(Request $request){
@@ -68,7 +72,16 @@ class ArticleController extends Controller
         $article->body  = $request->body;
         $article->category_id = $request->category_id;
 
-        return $article->save();
+        $tagIds = $article->tags->pluck('id');
+        $article->tags()->updateExistingPivot($tagIds, ['deleted_at' => Date::now()]);
+
+        if ($article->save()) {
+            foreach($request->tagIds as $tagId) {
+                $article->tags()->attach($tagId);
+            }
+        }
+
+        return $article;
     }
 
     public function updatePublication(int $id, int $publicationStatus){

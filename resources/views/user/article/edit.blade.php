@@ -48,6 +48,23 @@
                     @endforeach
                 </select>
             </div>
+            <div class="mt-4">
+                <p>Tag:</p>
+                <div id="articleTag" class="z-10 bg-white rounded-lg shadow mt-2">
+                    <ul class="h-48 px-5 pb-3 overflow-y-auto text-sm text-gray-700" aria-labelledby="articleTag">
+                        @foreach($tags as $tag)
+                            <li class="cursor-pointer">
+                                <div class="flex items-center p-2 rounded cursor-pointer hover:bg-slate-200">
+                                    <input id="{{ $tag->key . "Tag" }}" type="checkbox" name="tag" value="{{ $tag->id }}"
+                                           {{ in_array($tag->id, $articleTags) ? "checked" : "" }}
+                                           class="w-4 h-4 text-blue-600  border-gray-300 rounded cursor-pointer focus:ring-blue-500 focus:ring-2">
+                                    <label for="{{ $tag->key . "Tag" }}" class="w-full ml-2 text-sm font-medium cursor-pointer rounded">{{ $tag->name }}</label>
+                                </div>
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
+            </div>
         </div>
     </form>
 </div>
@@ -65,11 +82,17 @@
                 }
             });
 
+            const tagIds = [];
+            $(':checkbox[name="tag"]:checked').each(function() {
+                tagIds.push($(this).val())
+            })
+
             const data = {
                 id   : articleId,
                 title: $('#articleForm #articleTitle').val(),
                 body : $('#articleForm #articleBody').val(),
                 category_id : $('#articleForm #articleCategory').val(),
+                tagIds: tagIds,
             }
 
             $.ajax({
