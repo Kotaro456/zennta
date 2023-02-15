@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User\ArticleController;
 use App\Http\Controllers\User\DashboardController;
+use App\Http\Controllers\User\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,9 +17,7 @@ use App\Http\Controllers\User\DashboardController;
 |
 */
 
-Route::get('/', function () {
-    return view('user.top');
-})->name('top');
+Route::get('/', [HomeController::class, 'top'])->name('top');
 
 Route::get('/following', function () {
     return view('user.following');

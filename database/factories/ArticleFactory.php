@@ -30,7 +30,7 @@ class ArticleFactory extends Factory
             'user_id'     => User::factory()->create(),
             'category_id' => Category::query()->inRandomOrder()->first()->id,
             'title'       => fake()->name(),
-            'body' => fake()->sentence(),
+            'body'        => fake()->sentence(),
             'is_public'   => true,
         ];
     }
