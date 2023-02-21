@@ -47,6 +47,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/update/{id}', [ArticleController::class, 'update'])->name('article.update');
     Route::post('/updatePublication/{articleId}/{publicationStatus}', [ArticleController::class, 'updatePublication'])->name('article.updatePublication');
     Route::post('/delete/{id}', [ArticleController::class, 'delete'])->name('article.delete');
+
+    Route::post('/like', [ArticleController::class, 'like']);
 });
 
 Route::middleware('auth')->name('user.')->group(function () {

@@ -94,4 +94,11 @@ class ArticleController extends Controller
         $article = Article::destroy($id);
         return redirect()->route('dashboard');
     }
+
+    public function like(Request $request){
+        $user = Auth::user();
+
+        $user->articles()->attach($request->article_id);
+        return true;
+    }
 }
