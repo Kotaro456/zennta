@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -43,10 +44,20 @@ class User extends Authenticatable
     ];
 
     /**
+     * ユーザーが作成した記事
+     * @return HasMany
+     */
+    public function articles(): HasMany
+    {
+        return $this->hasMany(Article::class);
+    }
+
+
+    /**
      * ブログポストのコメントを取得
      * @return BelongsToMany
      */
-    public function articles(): BelongsToMany
+    public function liked_articles(): BelongsToMany
     {
         return $this->belongsToMany(Article::class, 'article_user_like');
     }

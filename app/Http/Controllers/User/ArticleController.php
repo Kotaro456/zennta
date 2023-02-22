@@ -98,7 +98,14 @@ class ArticleController extends Controller
     public function like(Request $request){
         $user = Auth::user();
 
-        $user->articles()->attach($request->article_id);
+        $user->liked_articles()->attach($request->article_id);
+        return true;
+    }
+
+    public function removeLike(Request $request){
+        $user = Auth::user();
+
+        $user->liked_articles()->detach($request->article_id);
         return true;
     }
 }
