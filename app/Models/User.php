@@ -2,13 +2,12 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-use App\Models\Article;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class User extends Authenticatable
 {
@@ -45,11 +44,21 @@ class User extends Authenticatable
     ];
 
     /**
-     * ブログポストのコメントを取得
+     * ユーザーが作成した記事
      * @return HasMany
      */
     public function articles(): HasMany
     {
         return $this->hasMany(Article::class);
+    }
+
+
+    /**
+     * ブログポストのコメントを取得
+     * @return BelongsToMany
+     */
+    public function liked_articles(): BelongsToMany
+    {
+        return $this->belongsToMany(Article::class, 'article_user_like');
     }
 }

@@ -30,15 +30,13 @@ Route::get('/explore', function () {
 
 Route::middleware(['auth', 'verified'])->group(function () {
 
+    Route::get('/dashboard/favorite',  [DashboardController::class, 'likedArticles'])->name('dashboard.favorite');
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     Route::get('/dashboard/following', function () {
         return view('user.dashboard.following');
     })->name('dashboard.following');
 
-    Route::get('/dashboard/favorite', function () {
-        return view('user.dashboard.favorite');
-    })->name('dashboard.favorite');
 
     Route::get('/new', [ArticleController::class, 'new'])->name('article.new');
     Route::post('/create', [ArticleController::class, 'create'])->name('article.create');
@@ -47,6 +45,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/update/{id}', [ArticleController::class, 'update'])->name('article.update');
     Route::post('/updatePublication/{articleId}/{publicationStatus}', [ArticleController::class, 'updatePublication'])->name('article.updatePublication');
     Route::post('/delete/{id}', [ArticleController::class, 'delete'])->name('article.delete');
+
+    Route::post('/like', [ArticleController::class, 'like']);
+    Route::post('/remove-like', [ArticleController::class, 'removeLike']);
 });
 
 Route::middleware('auth')->name('user.')->group(function () {

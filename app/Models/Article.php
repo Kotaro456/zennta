@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Article extends Model
@@ -56,4 +57,14 @@ class Article extends Model
     {
         return $this->belongsToMany(Tag::class);
     }
+
+    /**
+     * この記事をいいねしたユーザー
+     * @return BelongsToMany
+     */
+    public function like_users(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'article_user_like');
+    }
+
 }
