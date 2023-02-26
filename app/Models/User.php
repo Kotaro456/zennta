@@ -54,11 +54,29 @@ class User extends Authenticatable
 
 
     /**
-     * ブログポストのコメントを取得
+     * ユーザーがいいねした記事を取得
      * @return BelongsToMany
      */
     public function liked_articles(): BelongsToMany
     {
         return $this->belongsToMany(Article::class, 'article_user_like');
+    }
+
+    /**
+     * フォローしたユーザーを取得
+     * @return BelongsToMany
+     */
+    public function follow_users(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'follow_user', 'follow_user_id', 'followed_user_id');
+    }
+
+    /**
+     * フォローされているユーザーを取得
+     * @return BelongsToMany
+     */
+    public function followed_users(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'follow_user', 'followed_user_id', 'follow_user_id');
     }
 }
