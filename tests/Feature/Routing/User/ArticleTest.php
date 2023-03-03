@@ -9,6 +9,19 @@ use App\Models\User;
 class ArticleTest extends TestCase
 {
     /**
+     * 記事詳細ページへのルーティングテスト
+     *
+     * @return void
+     */
+    public function test_記事詳細ページアクセス_正常()
+    {
+        $article = Article::inRandomOrder()->first();
+        $response = $this->get(route('article.detail', ['id' => $article->id]));
+
+        $response->assertStatus(200);
+    }
+
+    /**
      * 記事作成ページへのルーティングテスト
      *
      * @return void

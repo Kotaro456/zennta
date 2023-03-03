@@ -27,6 +27,8 @@ Route::get('/explore', function () {
     return view('user.explore');
 })->name('explore');
 
+Route::get('/article/detail/{id}', [ArticleController::class, 'detail'])->name('article.detail');
+
 
 Route::middleware(['auth', 'verified'])->group(function () {
 
