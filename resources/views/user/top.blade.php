@@ -7,9 +7,8 @@
             </div>
             <div class="container px-5 py-4 mx-auto my-4">
                 <div class="flex flex-wrap -m-4">
-                @foreach($articlesPerCategory as $article)
-                    <a class="p-2 lg:w-1/3" href="{{route('article.detail', ['id' => $article->id])}}">
-                        <div>
+                    @foreach($articlesPerCategory as $article)
+                        <a class="p-2 lg:w-1/3" href="{{route('article.detail', ['id' => $article->id])}}">
                             <div
                                 class="bg-white px-8 py-2 rounded-lg overflow-hidden text-center relative">
                                 <h2 class="tracking-widest text-xs title-font font-medium text-gray-400 mb-1">{{ $article->category->name ?? 'null' }}</h2>
@@ -22,9 +21,8 @@
                                     <i class="fa-solid fa-heart"></i>
                                 </span>
                             </div>
-                        </div>
-                    </a>
-                @endforeach
+                        </a>
+                    @endforeach
                 </div>
             </div>
         </section>
