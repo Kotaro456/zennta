@@ -9,10 +9,16 @@ use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Date;
-use Illuminate\Support\Facades\DB;
 
 class ArticleController extends Controller
 {
+
+    public function detail($id){
+        $article = Article::find($id);
+
+        return view('user.article.detail', ['article' => $article]);
+    }
+
     public function new(){
         $categories = Category::all();
         $tags = Tag::all();
